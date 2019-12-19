@@ -1,0 +1,134 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: sans-serif;
+}
+
+main{
+    width: 100%;
+    display: flex;
+}
+
+header{
+    width: 100%;
+    height: 50px;
+    background: #242C42;
+}
+
+header span{
+    font-weight: 100%;
+    font-size: 20px;
+    padding: 10px;
+    color: white;
+    transition: all 300ms;
+    cursor: pointer;
+    position: relative;
+    top: 10px;
+    left: 5px;
+}
+
+header span:hover{
+    background: #0F723A;
+    border-radius: 10px;
+}
+
+.content-menu{
+    width: 100px;
+    background: #242C42;
+    transition: all 300ms;
+}
+
+.content-menu2{
+    margin-left: -100px;
+}
+
+.content-menu li{
+    list-style: none;
+    
+    padding: 20px;
+    color: white;
+    transition: all 300ms;
+    cursor: pointer;
+}
+
+.content-menu li:hover{
+    transform: translateY(10px);
+    background: #0F723A;
+}
+
+.li-top {
+        margin-top: 50px;
+}
+
+.li-bottom {
+    margin-bottom: 55px;
+}
+
+.content-menu li span{
+    text-align: center;
+    font-size: 40px;
+}
+
+.content-menu li h4{
+    font-weight: 100;
+    transform: translateY(18px) translateX(-110px);
+    transition: all 300ms;
+    font-size: .8rem;
+    
+}
+
+.icon1{
+    color: gray;
+}
+
+.content-menu:hover .text1{
+    transform: translateX(0px);
+    transition: all 100ms;
+}
+
+.content-menu:hover .text2{
+    transform: translateX(0px);
+    transition: all 200ms;
+}
+
+
+.content-menu:hover .text3{
+    transform: translateX(0px);
+    transition: all 300ms;
+}
+
+
+.content-menu:hover .text4{
+    transform: translateX(0px);
+    transition: all 400ms;
+}
+
+
+article{
+    padding: 20px;
+}
+
+article h1{
+    font-size: 50px;
+    text-align: center;
+}
+
+article p{
+    font-size: 20px;
+    margin-top: 20px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
