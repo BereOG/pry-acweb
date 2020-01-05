@@ -1,0 +1,55 @@
+<div class="container p-4">
+    <div class="row">
+        <div class="col-md-4 mx-auto">
+            <div class="card text-center">
+                <div class="card-header">
+                    <h3>Registro</h3>
+                </div>
+                <div class="card-body">
+                    <form action="/signup" method="POST">
+                        <div class="form-group">
+                            <input type="text" name="IdEmp" placeholder="Id de empleado" class="form-control" autofocus>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" name="Nombre" placeholder="Nombre" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" name="ApellidoP" placeholder="Apellido Paterno" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" name="ApellidoM" placeholder="Apellido Materno" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" name="Username" placeholder="Usuario" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" name="Correo" placeholder="Correo" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <input type="password" name="Password" placeholder="Contraseña" class="form-control">
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="Tipo_Usuario" id="1" value="Empleado"
+                                checked>
+                            <label class="form-check-label" for="1">
+                                Empleado
+                            </label>
+                        </div>
+                        <div class="form-check disabled">
+                            <input class="form-check-input" type="radio" name="Tipo_Usuario" id="2"
+                                value="Administrador" disabled>
+                            <label class="form-check-label" for="2">
+                                Administrador
+                            </label>
+                        </div>
+                        <div class="form group">
+                            <button class="btn btn-success btn-block">
+                                Registrate
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
