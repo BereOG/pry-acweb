@@ -17,12 +17,17 @@ router.post(
 
 router.get("/signin", (req, res) => {
   res.render("auth/signin");
+  //res.json({ message: "Contraseña incorrecta" });
+});
+
+router.get("/signin-fail", (req, res) => {
+  res.json({ message: "Contraseña incorrecta", error: true });
 });
 
 router.post("/signin", (req, res, next) => {
   passport.authenticate("local.signin", {
     successRedirect: "/profile",
-    failureRedirect: "/signin",
+    failureRedirect: "/signin-fail",
     failureFlash: true
   })(req, res, next);
 });

@@ -25,10 +25,12 @@ passport.use(
       if (rows.length > 0) {
         const user = rows[0];
         const validPass = await helpers.matchPassword(password, user.Password);
+        console.log(validPass);
         if (validPass) {
           done(null, user, req.flash("success", "Bienvenido" + user.Username));
         } else {
-          done(null, false, req.flash("message", "Contraseña incorrecta"));
+          req.error = true;
+          done(null, false, { message: "Incorrect password." });
         }
       } else {
         return done(null, false, req.flash("message", "El usuario no existe"));
@@ -96,16 +98,9 @@ passport.use(
 );
 
 passport.serializeUser((user, done) => {
-  if (user) {
-    return done(null, user.id);
-  }
-  return;
+  return done(null, user);
 });
 
-passport.deserializeUser(async (id, done) => {
-  console.log(id);
-  const rows = await pool.query("SELECT * FROM usuarios WHERE idUsu = ?", [id]);
-  console.log(rows);
-
-  return done(null, rows[0]);
+passport.deserializeUser(async (idUsu, done) => {
+  return done(null, idUsu);
 });
