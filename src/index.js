@@ -55,6 +55,7 @@ app.use((req, res, next) => {
 app.use(require("./routes"));
 app.use(require("./routes/authentication"));
 app.use("/admin", require("./routes/admin"));
+app.use("/empleado", require("./routes/empleado"));
 
 // Public
 app.use(express.static(path.join(__dirname, "public")));

@@ -1,0 +1,176 @@
+<div class="container p-4">
+    <div class="row">
+        <div class="col-md-4"></div>
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
+            <div class="card text-center">
+                <button class="btn btn-success" data-toggle="modal" data-target="#Modal" data-type="Save"><i
+                        class="fas fa-user-plus"> Nuevo Empleado</i></button>
+            </div>
+        </div>
+    </div>
+
+    <table class="table">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">Id Empleado</th>
+                <th scope="col">Id Usuario</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Apellido Paterno</th>
+                <th scope="col">Apellido Materno</th>
+                <th scope="col">Accion</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each empleado}}
+
+            <tr>
+
+
+                <td>{{this.IdEmp}}</td>
+                <td>{{this.idUs}}</td>
+                <td>{{this.Nombre}}</td>
+                <td>{{this.apellidoP}}</td>
+                <td>{{this.apellidoM}}</td>
+                <td>
+
+                    <button class="btn btn-warning" data-id="{{this.IdEmp}}" data-nombre="{{this.Nombre}}"
+                        data-ap="{{this.apellidoP}}" data-am="{{this.apellidoM}}" data-usuario="{{this.Username}}"
+                        data-correo="{{this.Correo}}" data-toggle="modal" data-target="#Modal"><i style="color: #fff;"
+                            class="fas fa-user-edit"></i></button>
+                    <button data-id="{{this.IdEmp}}" class="btn btn-danger" data-toggle="modal"
+                        data-target="#exampleModal"><i class="fas fa-user-times"></i></button>
+                </td>
+            </tr>
+
+            {{/each}}
+        </tbody>
+    </table>
+
+</div>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Eliminar Usuario</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                ¿Seguro que deseas eliminar este usuario?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                <a id="btnDelete" class="btn btn-danger">Eliminar</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="Modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Agregar Usuario</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="empleado-form" action="/empleado" method="POST">
+                    <div class="card-body">
+                        <div class="form-group">
+                            <input type="text" id="id" name="IdEmp" placeholder="Id de empleado" class="form-control"
+                                autofocus>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" id="nombre" name="Nombre" placeholder="Nombre" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" id="ap" name="ApellidoP" placeholder="Apellido Paterno"
+                                class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" id="am" name="ApellidoM" placeholder="Apellido Materno"
+                                class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" id="usuario" name="Username" placeholder="Usuario" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" id="correo" name="Correo" placeholder="Correo" class="form-control">
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="Tipo_Usuario" id="1" value="Empleado"
+                                checked>
+                            <label class="form-check-label" for="1">
+                                Empleado
+                            </label>
+                        </div>
+                        <div class="form-check disabled">
+                            <input class="form-check-input" type="radio" name="Tipo_Usuario" id="2"
+                                value="Administrador" disabled>
+                            <label class="form-check-label" for="2">
+                                Administrador
+                            </label>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                        <input type="submit" id="submit" class="btn">
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+    <script>
+
+        $('#Modal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget) // Button that triggered the modal
+            const data = button.data()
+
+            console.log(data) // Extract info from data-* attributes
+            // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+            // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+            var modal = $(this)
+            if (data.type === 'Save') {
+                modal.find('.modal-title').text('Usuario nuevo')
+                $('#submit').addClass('btn-primary')
+                $('#submit').val('Guardar')
+                //modal.find('.modal-body #id').val(':v')
+            } else {
+                $('#btnEdit').attr("href", `/empleado/edit/${id}`);
+                $('#empleado-form').attr("action", `/empleado/edit/${data.id}`);
+                modal.find('.modal-title').text('Editar')
+                $('#submit').addClass('btn-primary')
+                $('#submit').val('Editar')
+                modal.find('.modal-body #id').val(data.id)
+                modal.find('.modal-body #nombre').val(data.nombre)
+                modal.find('.modal-body #ap').val(data.ap)
+                modal.find('.modal-body #am').val(data.am)
+                modal.find('.modal-body #usuario').val(data.usuario)
+                modal.find('.modal-body #correo').val(data.correo)
+            }
+        })
+
+        $('#exampleModal').on('show.bs.modal', function (event) {
+
+            var button = $(event.relatedTarget)
+            console.log($('#btnDelete')); // Button that triggered the modal
+            var recipient = button.data('whatever') // Extract info from data-* attributes
+            // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+            // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+            var modal = $(this)
+            const id = button.data('id');
+
+            $('#btnDelete').attr("href", `/empleado/delete/${id}`);
+
+
+        })
+
+    </script>
