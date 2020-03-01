@@ -1,16 +1,51 @@
+{{#if user }}
 <header><span class="flaticon-042-menu show"></span></header>
-    <main>
-        <div class="content-menu">
-            <li class="li-top"><span class="flaticon-091-file icon">
-                    <h4 class="text1">Reportes</h4>
-                </span></li>
-            <li><span class="flaticon-073-information icon">
-                    <h4 class="text2">Incidencias</h4>
-                </span></li>
-            <li><span class="flaticon-011-user icon">
+<main>
+    <div class="content-menu">
+        {{#ifeq user.Tipo_Usuario 'Empleado' }}
+        <li>
+            <a style="color: white;" href="/admin">
+                <span class="flaticon-011-user icon">
+                    <h4 class="text1 ">Empleado {{user.Tipo_Usuario}} </h4>
+                </span>
+            </a>
+        </li>
+        {{/ifeq}}
+        {{#ifeq user.Tipo_Usuario 'Administrador' }}
+        <li>
+            <a style="color: white;" href="/admin/add">
+                <span class="flaticon-011-user icon">
+                    <h4 class="text1 ">Alumnos {{user.Tipo_Usuario}} </h4>
+                </span>
+            </a>
+        </li>
+        {{/ifeq }}
+        <li>
+            <a style="color: white;" href="/admin/reporte">
+                <span class="flaticon-091-file icon">
+                    <h4 class="text3">Reportes</h4>
+                </span>
+            </a>
+        </li>
+        {{#ifeq user.Tipo_Usuario 'Empleado' }}
+        <li><span class="flaticon-073-information icon">
+                <h4 class="text2">Insidencias</h4>
+            </span></li>
+        {{/ifeq}}
+        <a href="/admin/employees">
+            <li>
+                <span class="flaticon-008-briefcase icon">
                     <h4 class="text3">Empleados</h4>
                 </span></li>
-            <li class="li-bottom"><span class="flaticon-045-logout icon">
-                    <h4 class="text4">Cerrar Sesion</h4>
-                </span></li>
-        </div>
+        </a>
+        <a href="/logout">
+            <li>
+                <span style="color: white;" class="flaticon-045-logout icon">
+                    <h4 class="text4">
+                        Cerrar Sesion
+                    </h4>
+                </span>
+            </li>
+        </a>
+    </div>
+    {{/if }}

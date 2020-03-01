@@ -27,6 +27,7 @@ passport.use(
         const validPass = await helpers.matchPassword(password, user.Password);
         console.log(validPass);
         if (validPass) {
+          req.session.user = user;
           done(null, user, req.flash("success", "Bienvenido" + user.Username));
         } else {
           req.error = true;
@@ -48,6 +49,7 @@ passport.use(
       passReqToCallback: true
     },
     async (req, username, password, done) => {
+      console.log(":V");
       const {
         Correo,
         Username,
@@ -75,6 +77,7 @@ passport.use(
         }
 
         newUser.password = await helpers.encryptPassword(password);
+
         const result = await pool.query("INSERT INTO usuarios SET ? ", [
           newUser
         ]);
@@ -87,7 +90,12 @@ passport.use(
           idUs: result.insertId
         };
         const compt = await pool.query("INSERT INTO empleado SET ? ", [comp]);
+        console.log({ compt });
         newUser.id = result.insertId;
+        req.session.user = newUser;
+        // req.session.reload(function(err) {
+        //   req.session.user = newUser;
+        // });
         return done(null, newUser);
       } catch (error) {
         console.log(error);
