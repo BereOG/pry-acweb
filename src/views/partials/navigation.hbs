@@ -4,7 +4,7 @@
     <div class="content-menu">
         {{#ifeq user.Tipo_Usuario 'Empleado' }}
         <li>
-            <a style="color: white;" href="/admin">
+            <a style="color: white;" href="/empleado">
                 <span class="flaticon-011-user icon">
                     <h4 class="text1 ">Empleado {{user.Tipo_Usuario}} </h4>
                 </span>
@@ -29,15 +29,17 @@
         </li>
         {{#ifeq user.Tipo_Usuario 'Empleado' }}
         <li><span class="flaticon-073-information icon">
-                <h4 class="text2">Insidencias</h4>
+                <h4 class="text2"><a href="/empleado/insidencias"> Insidencias</a> </h4>
             </span></li>
         {{/ifeq}}
+        {{#ifeq user.Tipo_Usuario 'Administrador' }}
         <a href="/admin/employees">
             <li>
                 <span class="flaticon-008-briefcase icon">
                     <h4 class="text3">Empleados</h4>
                 </span></li>
         </a>
+        {{/ifeq}}
         <a href="/logout">
             <li>
                 <span style="color: white;" class="flaticon-045-logout icon">

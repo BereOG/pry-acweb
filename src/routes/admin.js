@@ -206,7 +206,7 @@ router.get("/delete/:id", async (req, res) => {
   //console.log({ IdEmp });
   const del = await pool.query("DELETE FROM empleado WHERE IdEmp = ?", [id]);
   console.log({ del });
-  res.redirect("/employees");
+  res.redirect("/admin/employees");
 });
 
 router.post("/addEmploye", async (req, res) => {
@@ -235,9 +235,10 @@ router.post("/addEmploye", async (req, res) => {
   if (val[0]) {
     return done(null, null);
   }
+  console.log({ Password });
   newUser.Password = await helpers.encryptPassword(Password);
   const result = await pool.query("INSERT INTO usuarios SET ? ", [newUser]);
-
+  console.log(result);
   const comp = {
     IdEmp,
     Nombre,
@@ -245,9 +246,9 @@ router.post("/addEmploye", async (req, res) => {
     "Apellido M": ApellidoM,
     idUs: result.insertId
   };
-  await pool.query("INSERT INTO empleado SET ?", [comp]);
-
-  res.redirect("/employees");
+  const xd = await pool.query("INSERT INTO empleado SET ?", [comp]);
+  console.log(xd);
+  res.redirect("/admin/employees");
 });
 
 router.post("/editEmployee/:id", async (req, res) => {
@@ -263,7 +264,7 @@ router.post("/editEmployee/:id", async (req, res) => {
   const update_2 = await pool.query(query_2, params_2);
   // const edit = await pool.query("SELECT * FROM empleado WHERE IdEmp = ?", [id]);
   // console.log({ edit });
-  res.redirect("/employees");
+  res.redirect("/admin/employees");
 });
 
 //--------- REPORTES -------

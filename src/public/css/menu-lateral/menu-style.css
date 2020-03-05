@@ -57,6 +57,15 @@ header span:hover{
     background: #0F723A;
 }
 
+.content-menu .active {
+    background: #0F723A;
+}
+
+.content-menu .activetext{
+    transform: translateX(0px);
+    transition: all 100ms;
+}
+
 .li-top {
         margin-top: 50px;
 }

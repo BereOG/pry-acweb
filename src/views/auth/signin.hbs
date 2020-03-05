@@ -9,6 +9,7 @@
                 <div class="card-header">
 
                     <h3>Login</h3>
+                    {{user.username}}
                 </div>
                 <div class="card-body">
                     <form action="/signin" method="POST" id="form">
@@ -24,6 +25,12 @@
                             <button class="btn btn-success btn-block">
                                 Iniciar Sesion
                             </button>
+                        </div>
+                        <br>
+                        <div class="form group">
+                            <a href="/signup" class="btn btn-success btn-block">
+                                Registrarte
+                            </a>
                         </div>
                     </form>
                 </div>
@@ -41,12 +48,15 @@
         const Username = document.querySelector("#username").value
         const Password = document.querySelector("#password").value
         console.log({ username, password });
-
         $.post("http://localhost:8080/signin", { Username, Password }, function (result) {
             //$("span").html(result);
-            console.log(result)
+            console.log(result);
             if (!result.error) {
-                return window.location.replace("http://localhost:8080/profile")
+                if (result.user.Tipo_Usuario === 'Administrador') {
+                    return window.location.replace("http://localhost:8080/admin/add");
+                } else {
+                    return window.location.replace("http://localhost:8080/Empleado");
+                }
             }
             $("#alert").css({ display: "inline" })
 

@@ -1,60 +1,183 @@
 <div class="container p-4">
-    <div class="row">
-        <div class="col-md-8 mx-auto">
-            <div class="card">
-                <div class="card-body">
-                    <form action="/admin/add" method="POST">
-                        <h5>Personal</h5 a>
-			        	<hr>
-			      		<div class="form-group">
-			      			<input type="text" class="form-control input-sm" id="nprof" name="nprof" placeholder="Nombre" required>
-			      		</div>     	
-			        	<div class="form-group">
-			        		<div class="row">
-			        			<div class="col-md-6">
-			        				<input type="text" name="apaternop" id="apaternop" class="form-control" placeholder="Apellido paterno" required>
-			        			</div>
-			        			<div class="col-md-6" style="padding-left: 0px;">
-			        				<input type="text" name="amaternop" id="amaternop" class="form-control" placeholder="Apellido materno" required>
-			        			</div>
-			        		</div>
-			        	</div>
-			        	<div class="form-group md-6">
-			               	<input type="text" name="telp" class="form-control" id="telp" placeholder="Telefono" required>
-			        	</div>
-			        	<h5>Academico</h5>
-			        	<hr>
-			        	<div class="row form-group">
-			        		<div class="col-md-5">
-				        		<select name="depto" id="depto" class="form-control" required>
-				        			<option value="" selected disabled hidden>Turno</option>
-                                    <option value="mat">Matutino</option>
-                                    <option value="vesp">Vespertino</option>
-				        		</select>
-			        		</div>
-			        		<div class="col-md-7" style="padding-left: 0px;">
-			        			<input type="email" name="emailp" id="emailp" class="form-control" placeholder="Email" required>
-			        		</div>
-			        	</div>
-			        	<div class="row form-group">
-			        		<div class="col-md-4">
-			      				<input type="number" class="form-control input-sm" id="matprof" name="matprof" placeholder="Matricula" required>
-			      			</div>
-			      			<div class="col-md-8" style="padding-left: 0px;">
-			      				<input type="text" name="userp" id="userp" class="form-control" placeholder="Usuario" required>
-			      			</div>
-			        	</div>
-			        	<div class="row form-group">
-			        		<div class="col-md-6">
-			        			<input type="password" name="passp" id="passp" class="form-control" placeholder="Contraseña" required>
-			        		</div>
-			        		<div class="col-md-6" style="padding-left: 0px;">
-			        			<input type="password" name="passcp" id="passcp" class="form-control" placeholder="Confirmar contraseña" required>
-			        		</div>
-			        	</div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
+    <h3>Alumnos</h3>
+    <hr>
+	<div class="card" style="margin-top: 25px;">
+		<div class="card-header">
+			<ul class="nav nav-tabs card-header-tabs">
+				<div class="btn-group" role="group">
+					<a type="button" class="nav-link inf" href="#fileUpload" id="aFile">Cargar archivo</a>
+					<a type="button" class="nav-link inf" href="#studentUpload" id="aStudent">Agregar alumno</a>
+				</div>
+			</ul>
+		</div>
+		<div class="card-body">
+			<div id="fileUpload" class="col-md-12 oculto">
+				<form action="/admin/cargaArchivos" method="POST">
+					<div class="container">
+						<div class="col-md-12 col-md-offset-2">
+							<h4>Seleccionar archivo</h4>
+							<hr>
+							<p>Selecciona el archivo correspondiente a la lista de alumnos.</p>
+							<!-- COMPONENT START -->
+							<div class="form-group" style="margin-top: -25px;">
+								<div class="input-group input-file" name="rutaArchivo">
+									<span class="input-group-btn">
+										<button class="btn btn-primary btn-choose" type="button">Selecciona</button>
+									</span>
+									<input type="text" class="form-control" placeholder='Cargar un archivo...' />
+									<span class="input-group-btn">
+										<button class="btn btn-warning btn-reset" type="button">Reiniciar</button>
+									</span>
+								</div>
+							</div>
+							<!-- COMPONENT END -->
+							<div class="form-group">
+								<button type="submit" class="btn btn-success pull-right btn-block">Enviar</button>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+			<div id="studentUpload" class="col-md-10 oculto">
+				<div class="container">
+					<form action="/admin/add" method="POST">
+						<h4>Informacion personal</h4>
+						<hr>
+						<div class="row">
+							<div class="col-md-10">
+								<div class="form-group">
+									<label for="nombre">Nombre(s):</label>
+									<input type="text" class="form-control input-sm" id="nalumno" name="nombre"
+										placeholder="Ingrese nombre" autofocus required>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-5">
+								<div class="form-group">
+									<label for="apellido_p">Apellido Paterno:</label>
+									<input type="text" name="apellido_p" id="apellido_p" class="form-control"
+										placeholder="Ingrese apellido paterno" required>
+								</div>
+							</div>
+							<div class="col-md-5">
+								<div class="form-group">
+									<label for="apellido_m">Apellido Materno:</label>
+									<input type="text" name="apellido_m" id="apellido_m" class="form-control"
+										placeholder="Ingrese apellido materno" required>
+								</div>
+							</div>
+						</div>
+						<h4>Informacion Academica</h4>
+						<hr>
+						<div class="row form-group">
+							<div class="col-md-5">
+								<label for="matricula">Matricula: </label>
+								<input type="text" class="form-control input-sm" id="matricula" name="matricula"
+									placeholder="Ingrese matricula" required>
+							</div>
+							<div class="col-md-5">
+								<label for="grupo">Grupo:</label>
+								<select name="grupo" id="grupo" class="custom-select">
+									<option selected>Selecciona grupo</option>
+									<option value="grupo1">101</option>
+									<option value="grupo2">102</option>
+									<option value="grupo3">103</option>
+									<option value="grupo4">104</option>
+								</select>
+							</div>
+						</div>
+						<div class="row form-group">
+							<div class="col-md-5">
+								<label for="radio">Selecciona turno:</label>
+								<div class="form-check" name="radio">
+									<input class="form-check-input" type="radio" name="turno" id="turno" value="1">
+									<label class="form-check-label" for="turno">
+										Matutino
+									</label>
+									<input class="form-check-input" type="radio" name="turno" id="turno" value="2"
+										style="margin-left: 0px;">
+									<label class="form-check-label" for="turnoVesp" style="margin-left: 20px;">
+										Vespertino
+									</label>
+								</div>
+							</div>
+							<div class="col-md-5">
+								<label for="carrera">Carrera:</label>
+								<select name="carrera" id="carrera" class="custom-select">
+									<option selected>Selecciona la carrera</option>
+									<option value="1">Animación Digital</option>
+									<option value="2">Soporte y Mantenimiento de Equipo de Cómputo</option>
+								</select>
+							</div>
+						</div>
+						<hr>
+						<div class="form-group">
+							<button class="btn btn-success btn-block">
+								Enviar
+							</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
+</div>
+</div>
+<script>
+	//Function for nav-tabs
+	$(document).ready(function () {
+		$(".oculto").hide();
+		$("#aFile").click(function () {
+			$("#aStudent").removeClass('active');
+			$(this).addClass('active');
+		});
+		$("#aStudent").click(function () {
+			$("#aFile").removeClass('active');
+			$(this).addClass('active');
+		});
+		$(".inf").click(function () {
+			var nodo = $(this).attr("href");
+
+			if ($(nodo).is(":visible")) {
+				$(nodo).hide();
+				return false;
+			} else {
+				$(".oculto").hide("slow");
+				$(nodo).fadeToggle("fast");
+				return false;
+			}
+		});
+	});
+	//Function file upload
+	function bs_input_file() {
+		$(".input-file").before(
+			function () {
+				if (!$(this).prev().hasClass('input-ghost')) {
+					var element = $("<input type='file' class='input-ghost' accept='.txt' style='visibility:hidden; height:0'>");
+					element.attr("name", $(this).attr("name"));
+					element.change(function () {
+						element.next(element).find('input').val((element.val()).split('\\').pop());
+					});
+					$(this).find("button.btn-choose").click(function () {
+						element.click();
+					});
+					$(this).find("button.btn-reset").click(function () {
+						element.val(null);
+						$(this).parents(".input-file").find('input').val('');
+					});
+					$(this).find('input').css("cursor", "pointer");
+					$(this).find('input').mousedown(function () {
+						$(this).parents('.input-file').prev().click();
+						return false;
+					});
+					return element;
+				}
+			}
+		);
+	}
+	$(function () {
+		bs_input_file();
+	});
+</script>

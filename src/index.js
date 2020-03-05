@@ -7,6 +7,21 @@ const session = require("express-session");
 const MySQLStore = require("express-mysql-session")(session);
 const { database } = require("./keys");
 const passport = require("passport");
+const multer = require("multer");
+
+let storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "./tmp");
+  },
+  filename: (req, file, cb) => {
+    cb(
+      null,
+      file.fieldname + "-" + Date.now() + path.extname(file.originalname)
+    );
+  }
+});
+
+const upload = multer({ storage });
 
 // Initializations
 const app = express();
@@ -22,7 +37,15 @@ app.engine(
     layoutsDir: path.join(app.get("views"), "layouts"),
     partialsDir: path.join(app.get("views"), "partials"),
     extname: ".hbs",
-    helpers: require("./lib/handlebars")
+    // helpers: require("./lib/handlebars")
+    helpers: {
+      ifeq: (a, b, options) => {
+        if (a === b) {
+          return options.fn(this);
+        }
+        return options.inverse(this);
+      }
+    }
   })
 );
 app.set("view engine", ".hbs");
@@ -47,15 +70,18 @@ app.use(passport.session());
 app.use((req, res, next) => {
   res.locals.message = req.flash("message");
   res.locals.success = req.flash("success");
-  app.locals.user = req.user;
+  app.locals.user = req.session.user;
   next();
 });
 
 // Routes
 app.use(require("./routes"));
 app.use(require("./routes/authentication"));
+app.use("/empleado", require("./routes/employees"));
+app.use(require("./lib/auth").isLoggedIn);
+app.use("/pdf", require("./pdf/routes"));
+// app.use(require("./lib/auth").isAdministrador);
 app.use("/admin", require("./routes/admin"));
-app.use("/empleado", require("./routes/empleado"));
 
 // Public
 app.use(express.static(path.join(__dirname, "public")));
